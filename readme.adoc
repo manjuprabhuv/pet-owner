@@ -1,0 +1,214 @@
+= Customer API
+
+The simple Pet-Owner API built using Spring Boot.
+
+== Library used
+1. Spring Boot 2.1.1.RELEASE
+2. H2 database 1.4.197 
+
+==
+Open API specification  -
+https://app.swaggerhub.com/apis-docs/m542/pet-owner/1.0.0
+
+== Installing
+
+The API can be easily built with maven wapper. You also need JDK 1.8.
+
+ $ ./mvnw clean install
+
+== Features
+
+
+=== Get All Owners
+Retrieves all Owners from H2 database
+
+*GET /api/v1/owners
+
+Sample request
+[source,http,options="nowrap"]
+----
+GET /api/v1/owners HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization : Basic YWRtaW46cGFzc3dvcmQ=
+Host: localhost:8080
+
+----
+
+Sample response
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 19
+
+[
+    {
+        "id": 1,
+        "firstName": "John",
+        "lastName": "Doe",
+        "city": "Sydney",
+        "petId": [
+            1,
+            5
+        ]
+    },
+    {
+        "id": 2,
+        "firstName": "Jane",
+        "lastName": "Doe",
+        "city": "Perth",
+        "petId": [
+            4,
+            2
+        ]
+    },
+    {
+        "id": 3,
+        "firstName": "John",
+        "lastName": "Smith",
+        "city": "Hobart",
+        "petId": [
+            3
+        ]
+    }
+]
+
+=== Get Owners by OwnerId
+Retrieves a Owners from H2 database
+
+*GET /api/v1/owners/{ownerId}
+
+Sample request
+[source,http,options="nowrap"]
+----
+GET /api/v1/owners/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization : Basic YWRtaW46cGFzc3dvcmQ=
+Host: localhost:8080
+
+----
+
+Sample response
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 19
+
+{
+    "id": 1,
+    "firstName": "John",
+    "lastName": "Doe",
+    "city": "Sydney",
+    "petId": [
+        1,
+        5
+    ]
+}
+
+=== Get All Pets
+Retrieves all Pets from H2 database
+
+*GET /api/v1/pets
+
+Sample request
+[source,http,options="nowrap"]
+----
+GET /api/v1/pets HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization : Basic YWRtaW46cGFzc3dvcmQ=
+Host: localhost:8080
+
+----
+
+Sample response
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 19
+
+[
+    {
+        "id": 1,
+        "name": "Benji",
+        "birthday": "2017-10-11",
+        "ownerId": 1
+    },
+    {
+        "id": 2,
+        "name": "Bandit",
+        "birthday": "2016-01-01",
+        "ownerId": 2
+    },
+    {
+        "id": 3,
+        "name": "Blondi",
+        "birthday": "2018-04-12",
+        "ownerId": 3
+    },
+    {
+        "id": 4,
+        "name": "Bingo",
+        "birthday": "2018-10-12",
+        "ownerId": 2
+    }
+]
+
+=== Get Pet by petId
+Retrieves a Pet from H2 database
+
+*GET /api/v1/pets/{petId}
+
+Sample request
+[source,http,options="nowrap"]
+----
+GET /api/v1/pets/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization : Basic YWRtaW46cGFzc3dvcmQ=
+Host: localhost:8080
+
+----
+
+Sample response
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 19
+
+{
+    "id": 1,
+    "name": "Benji",
+    "birthday": "2017-10-11",
+    "ownerId": 1
+}
+
+
+=== Add Pet 
+Add Pet to H2 Database
+
+*POST /api/v1/pets
+
+.Sample request
+[source,http,options="nowrap"]
+----
+POST /api/v1/pets HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization : Basic YWRtaW46cGFzc3dvcmQ=
+Host: localhost:8080
+Content-Length: 382
+
+ {
+        "name": "Benji11",
+        "birthday": "2017-60-11",
+        "ownerId": 1
+}
+----
+
+.Sample response
+[source,http,options="nowrap"]
+----
+HTTP/1.1 201 OK
+
+----

@@ -1,0 +1,224 @@
+swagger: "2.0"
+info:
+  description: "This is Open API documentation for Pet care"
+  version: "1.0.0"
+  title: "Open API specs Pets care"
+  contact:
+    email: "manjuprabhuv@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+# basePath: /api/v1/
+# schemes:
+#   - http
+produces:
+  - application/json
+consumes:
+  - application/json
+
+
+parameters:
+  petId:
+      name: petId
+      in: path
+      description: PetID for which the Pet details are required
+      required: true
+      type: string
+      
+  ownerId:
+      name: ownerId
+      in: path
+      description: ownerId for which the Owner details are required
+      required: true
+      type: string
+  
+ 
+
+paths:
+  /pets:
+    get:
+      tags:
+        - get Pets
+      description: This resource retrieves all the Pets with Owner details
+      operationId: getPets
+      responses:
+        #Success
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Pet'
+        # Client Errors
+        400:
+          $ref: '#/definitions/Error'
+        # Server Errors
+        500:
+          $ref: '#/definitions/Error'
+    post:
+      tags:
+      - pet
+      summary: Add a new pet to the database
+      operationId: addPet
+      parameters:
+      - in: body
+        name: body
+        description: Pet object that needs to be added to the store
+        required: true
+        schema:
+          $ref: '#/definitions/Pet'
+      responses:
+        200:
+          description:  SUCCESS response
+        400:
+          description: Invalid input  
+          
+    put:
+      tags:
+      - pet
+      summary: Update a pet in the database
+      operationId: updatePet
+      parameters:
+      - in: body
+        name: body
+        description: Pet object that needs to be updated to the store
+        required: true
+        schema:
+          $ref: '#/definitions/Pet'
+      responses:
+        200:
+          description:  SUCCESS response
+        400:
+          description: Invalid input
+
+  /pets/{petId}:
+    get:
+      tags:
+        - get Pets
+      description: This resourse retrieves all the Pets with Owner details
+      operationId: getPetbyPetId
+      parameters:
+        - $ref : "#/parameters/petId"
+      responses:
+        #Success
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Pet'
+        #Client Errors
+        400:
+          $ref: '#/definitions/Error'
+        # Server Errors
+        500:
+          $ref: '#/definitions/Error' 
+        
+  /owners:
+    get:
+      tags:
+        - get Owners
+      description: This resourse retrieves all the Owners with Pet details
+      operationId: getOwners
+      responses:
+        #Success
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Owner'
+        # Client Errors
+        400:
+          $ref: '#/definitions/Error'
+        # Server Errors
+        500:
+          $ref: '#/definitions/Error' 
+
+
+  /owners/{ownerId}:
+    get:
+      tags:
+        - get Owners
+      description: This resourse retrieves a simgle owner with Pet details
+      operationId: getOwnerbyownerId
+      parameters:
+        - $ref : "#/parameters/ownerId"
+      responses:
+        #Success
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Owner'
+        # Client Errors
+        400:
+          $ref: '#/definitions/Error'
+        #Server Errors
+        500:
+          $ref: '#/definitions/Error' 
+        
+
+definitions:
+  Owner:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        example: 1
+      firstName:
+        type: string
+        example: John
+      lastName:
+        type: string
+        example : Doe
+      city:
+        type: string
+        example : Sydney
+      petId:
+        type: array
+        items :
+          type : integer
+          format: int64
+          example: [1,2,3]
+     
+  Pet:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        example: 1
+      name:
+        type: string
+        example : Bingo
+      birthday:
+        type: string
+        format: date
+        example : 2017-10-09
+      ownerId:
+        type: integer
+        format: int64
+        example: 1
+        
+  Error:
+    description:  Represent an individual error.
+    type: object
+    required:
+      - code
+      - message
+    properties:
+      code:
+        description:  Error Code.
+        type: integer
+        format: int32
+      message:
+        description:  Error Message
+        type: string
+      details:
+        description: Detailed information about the error
+        type: string
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /m542/pet-owner/1.0.0
+schemes:
+ - https
+ - http
