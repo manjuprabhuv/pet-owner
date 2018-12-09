@@ -1,4 +1,4 @@
-= Customer API
+= Pet-Owner API
 
 The simple Pet-Owner API built using Spring Boot.
 
